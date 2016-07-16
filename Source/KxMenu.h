@@ -42,11 +42,18 @@
 @property (readwrite, nonatomic) SEL action;
 @property (readwrite, nonatomic, strong) UIColor *foreColor;
 @property (readwrite, nonatomic) NSTextAlignment alignment;
+@property (readwrite, nonatomic, weak) id userData;
 
 + (instancetype) menuItem:(NSString *) title
                     image:(UIImage *) image
                    target:(id)target
                    action:(SEL) action;
+
++ (instancetype) menuItem:(NSString *) title
+                    image:(UIImage *) image
+                   target:(id)target
+                   action:(SEL) action
+                 userData:(id)userData;
 
 @end
 
