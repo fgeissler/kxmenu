@@ -181,7 +181,7 @@
 		87292B9C1746668300821739 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = "Konstantin Bukreev";
 			};
 			buildConfigurationList = 87292B9F1746668300821739 /* Build configuration list for PBXProject "KxMenuExample" */;
@@ -265,6 +265,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -316,6 +317,7 @@
 				GCC_PREFIX_HEADER = "KxMenuExample/KxMenuExample-Prefix.pch";
 				INFOPLIST_FILE = "KxMenuExample/KxMenuExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.kolyvan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -328,6 +330,7 @@
 				GCC_PREFIX_HEADER = "KxMenuExample/KxMenuExample-Prefix.pch";
 				INFOPLIST_FILE = "KxMenuExample/KxMenuExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "ru.kolyvan.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
