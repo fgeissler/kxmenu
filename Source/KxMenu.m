@@ -116,7 +116,7 @@ const CGFloat kArrowSize = 12.f;
 }
 
 + (instancetype) separator {
-    return [[KxMenuItem alloc] init:@"         ------------------------------"
+    return [[KxMenuItem alloc] init:nil
                               image:nil
                              target:nil
                              action:nil
@@ -131,7 +131,7 @@ const CGFloat kArrowSize = 12.f;
    userData:(id)userData
    itemType:(ItemType)itemType
 {
-    NSParameterAssert(title.length || image);
+    NSParameterAssert(itemType != kSeparator ? title.length || image : true);
     
     self = [super init];
     if (self) {
@@ -366,7 +366,7 @@ typedef enum {
                          self.frame = toFrame;
                          
                      } completion:^(BOOL completed) {
-                         _contentView.hidden = NO;
+                         self->_contentView.hidden = NO;
                      }];
    
 }
@@ -466,7 +466,8 @@ typedef enum {
     
     UIImage *selectedImage = [KxMenuView selectedImage:(CGSize){maxItemWidth, maxItemHeight + 2}];
     UIImage *gradientLine = [KxMenuView gradientLine: (CGSize){maxItemWidth - kMarginX * 4, 1}];
-    
+    UIImage *separatorLine = [KxMenuView gradientSeparatorLine: (CGSize){maxItemWidth - kMarginX * 3 , 2}];
+
     UIView *contentView = [[UIView alloc] initWithFrame:CGRectZero];
     contentView.autoresizingMask = UIViewAutoresizingNone;
     contentView.backgroundColor = [UIColor clearColor];
@@ -550,7 +551,7 @@ typedef enum {
             [itemView addSubview:imageView];
         }
         
-        if (itemNum < _menuItems.count - 1) {
+        if ( (itemNum < _menuItems.count - 1) && (menuItem.itemType != kSeparator) && ((KxMenuItem*)[_menuItems objectAtIndex:itemNum+1]).itemType != kSeparator ) {
             
             UIImageView *gradientView = [[UIImageView alloc] initWithImage:gradientLine];
             gradientView.frame = (CGRect){kMarginX * 2, maxItemHeight + 1, gradientLine.size};
@@ -558,9 +559,18 @@ typedef enum {
             [itemView addSubview:gradientView];
             
             itemY += 2;
+        } else if (menuItem.itemType == kSeparator) {
+            UIImageView *gradientView = [[UIImageView alloc] initWithImage:separatorLine];
+            gradientView.frame = (CGRect){kMarginX, 0, gradientLine.size};
+            gradientView.contentMode = UIViewContentModeLeft;
+            [itemView addSubview:gradientView];
+            
+            itemY += 5;
+            itemY -= maxItemHeight;
         }
-        
+
         itemY += maxItemHeight;
+
         ++itemNum;
     }    
     
@@ -613,6 +623,23 @@ typedef enum {
     const CGFloat locations[5] = {0,0.2,0.5,0.8,1};
     
     const CGFloat R = 0.44f, G = 0.44f, B = 0.44f;
+        
+    const CGFloat components[20] = {
+        R,G,B,0.1,
+        R,G,B,0.4,
+        R,G,B,0.7,
+        R,G,B,0.4,
+        R,G,B,0.1
+    };
+    
+    return [self gradientImageWithSize:size locations:locations components:components count:5];
+}
+
++ (UIImage *) gradientSeparatorLine: (CGSize) size
+{
+    const CGFloat locations[5] = {0,0.2,0.5,0.8,1};
+    
+    const CGFloat R = 0.8f, G = 0.8f, B = 0.8f;
         
     const CGFloat components[20] = {
         R,G,B,0.1,

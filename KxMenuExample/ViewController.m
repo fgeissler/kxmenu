@@ -128,6 +128,8 @@
                      image:nil
                     target:self
                     action:@selector(pushMenuItem:)],
+
+      [KxMenuItem separator],
       
       [KxMenuItem menuItem:@"Reload page"
                      image:[UIImage imageNamed:@"reload"]
@@ -143,7 +145,9 @@
                      image:[UIImage imageNamed:@"home_icon"]
                     target:self
                     action:@selector(pushMenuItem:)],
-      ];
+
+      [KxMenuItem separator]
+    ];
     
     KxMenuItem *first = menuItems[0];
     first.foreColor = [UIColor colorWithRed:47/255.0f green:112/255.0f blue:225/255.0f alpha:1.0];
