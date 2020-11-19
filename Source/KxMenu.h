@@ -34,6 +34,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum {
+    kSelectableItem,
+    kSeparator
+} ItemType;
+
 @interface KxMenuItem : NSObject
 
 @property (readwrite, nonatomic, strong) UIImage *image;
@@ -43,6 +48,7 @@
 @property (readwrite, nonatomic, strong) UIColor *foreColor;
 @property (readwrite, nonatomic) NSTextAlignment alignment;
 @property (readwrite, nonatomic, strong) id userData;
+@property (readwrite, nonatomic, assign) ItemType itemType;
 
 + (instancetype) menuItem:(NSString *) title
                     image:(UIImage *) image
@@ -54,6 +60,8 @@
                    target:(id)target
                    action:(SEL) action
                  userData:(id)userData;
+
++ (instancetype) separator;
 
 @end
 

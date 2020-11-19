@@ -97,7 +97,8 @@ const CGFloat kArrowSize = 12.f;
                               image:image
                              target:target
                              action:action
-                           userData:nil];
+                           userData:nil
+                           itemType:kSelectableItem];
 }
 
 + (instancetype) menuItem:(NSString *) title
@@ -110,7 +111,17 @@ const CGFloat kArrowSize = 12.f;
                               image:image
                              target:target
                              action:action
-                           userData:userData];
+                           userData:userData
+                           itemType:kSelectableItem];
+}
+
++ (instancetype) separator {
+    return [[KxMenuItem alloc] init:@"         ------------------------------"
+                              image:nil
+                             target:nil
+                             action:nil
+                           userData:nil
+                           itemType:kSeparator];
 }
 
 - (id) init:(NSString *) title
@@ -118,6 +129,7 @@ const CGFloat kArrowSize = 12.f;
      target:(id)target
      action:(SEL) action
    userData:(id)userData
+   itemType:(ItemType)itemType
 {
     NSParameterAssert(title.length || image);
     
@@ -129,13 +141,14 @@ const CGFloat kArrowSize = 12.f;
         _target = target;
         _action = action;
         _userData = userData;
+        _itemType=itemType;
     }
     return self;
 }
 
 - (BOOL) enabled
 {
-    return _target != nil && _action != NULL;
+    return _target != nil && _action != NULL && _itemType != kSeparator;
 }
 
 - (void) performAction
@@ -421,7 +434,7 @@ typedef enum {
     
     for (KxMenuItem *menuItem in _menuItems) {
         
-        const CGSize imageSize = menuItem.image.size;        
+        const CGSize imageSize = menuItem.image.size;
         if (imageSize.width > maxImageWidth)
             maxImageWidth = imageSize.width;        
     }
@@ -432,7 +445,7 @@ typedef enum {
     
     for (KxMenuItem *menuItem in _menuItems) {
 
-        const CGSize titleSize = [menuItem.title sizeWithFont:titleFont];
+        const CGSize titleSize = menuItem.itemType == kSeparator ? CGSizeMake(1, 5) : [menuItem.title sizeWithFont:titleFont];
         const CGSize imageSize = menuItem.image.size;
 
         const CGFloat itemHeight = MAX(titleSize.height, imageSize.height) + kMarginY * 2;
