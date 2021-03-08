@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name     = 'KxMenu'
   s.version  = '1'
-  s.platform = :ios, '7.0'
+  s.platform = :ios, '9.2'
   s.license  = {:type => 'MIT'}
   s.summary  = 'KxMenu is a vertical popup menu for using in iOS applications'
   s.homepage = 'http://www.xxx.com'
